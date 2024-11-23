@@ -54,7 +54,9 @@ const [isClient, setIsClient] = useState(false);
 
     const data = await response.json();
 
-    setResData(data)
+    console.log('!!data', data.message)
+
+    setResData(data.message)
 
   } catch (error) {
     console.error('Error:', error);
