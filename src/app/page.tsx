@@ -37,14 +37,15 @@ const [isClient, setIsClient] = useState(false);
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
 
+        console.log('values', values)
 
   try {
     const response = await fetch('https://jdszr16-random-forest-rangers-be.onrender.com/test', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      // body: JSON.stringify(values),
+       body: JSON.stringify(values),
     });
 
     if (!response.ok) {
