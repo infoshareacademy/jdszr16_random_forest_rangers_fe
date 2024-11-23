@@ -161,6 +161,12 @@ a.secondary {
   }
 }
 
+/* Ukrycie Next.js Error Overlay */
+#__next-build-watcher,
+#__next-error-overlay {
+  display: none !important;
+}
+
 @media (prefers-color-scheme: dark) {
   .logo {
     filter: invert();
