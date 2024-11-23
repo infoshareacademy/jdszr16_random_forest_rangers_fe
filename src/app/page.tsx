@@ -94,7 +94,7 @@ const [isClient, setIsClient] = useState(false);
     </Form.Item>
   </Form>
 
-        {resData.value}
+        {resData}
 
       </main>
 
