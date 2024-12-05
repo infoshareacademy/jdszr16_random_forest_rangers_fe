@@ -55,7 +55,7 @@ export default function MoreInfo() {
   };
 
   const onSubmit = async () => {
-    const href = `https://jdszr16-random-forest-rangers-be.onrender.com/illness_more_info?isDoctor=${isDoctor}&length=${descriptionLength}&disease=${disease}`;
+    const href = `https://jdszr16-random-forest-rangers-be.onrender.com/illness_more_info?is_doctor=${isDoctor}&length=${descriptionLength}&disease=${disease}`;
 
     try {
       const response = await fetch( href );
