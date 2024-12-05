@@ -60,7 +60,7 @@ export default function MoreInfo() {
     <div>
       <span style={{ fontSize: 14, marginRight: 20 }}>
         {" "}
-        Dlugość opisu o chorobie (liczba zdań){" "}
+        Dlugość opisu choroby (ilosc zdań){" "}
         <InputNumber
           min={5}
           max={30}
@@ -83,7 +83,7 @@ export default function MoreInfo() {
           rows={10}
           style={{ width: 1000, marginTop: 20 }}
           value={diseaseDescription}
-          placeholder="Informacje o chorobie"
+          placeholder="Opis choroby"
         />
       </div>
     </div>
