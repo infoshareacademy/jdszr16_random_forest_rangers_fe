@@ -87,7 +87,7 @@ export default function Home() {
           </Button>
         </Form.Item>
       </Form>
-      <Divider style={{marginTop: 30}} orientation="left" plain>
+      <Divider style={{marginTop: 60}} orientation="left" plain>
         Dodatkowe informacje o chorobie
       </Divider>
 
