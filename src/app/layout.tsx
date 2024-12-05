@@ -1,14 +1,14 @@
 'use client'
-import type {Metadata} from "next";
+// import type {Metadata} from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import {Breadcrumb, Layout, Menu, theme} from 'antd';
+import {Layout, Menu} from 'antd';
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 import styles from "@/app/page.module.css";
 
 
-const {Header, Content, Footer} = Layout;
+const {Header } = Layout;
 
 
 const geistSans = localFont({

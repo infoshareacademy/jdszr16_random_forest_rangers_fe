@@ -25,7 +25,7 @@ export default function MoreInfo() {
   };
 
   const onLengthChange: InputNumberProps['onChange'] = (value) => {
-    setDescriptionLength(value || 5);
+    setDescriptionLength(Number(value) || 5);
   };
 
   const onDiseaseChange = (e: React.ChangeEvent<HTMLInputElement>) => {

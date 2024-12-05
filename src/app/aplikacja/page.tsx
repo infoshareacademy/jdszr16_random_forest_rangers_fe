@@ -5,7 +5,7 @@ import React, {useState, useEffect} from 'react';
 import type { FormProps } from 'antd';
 import { Button, Form, Input, Divider } from 'antd';
 import MoreInfo from './moreInfo';
-import styles from "../page.module.css";
+// import styles from "../page.module.css";
 
 
 
@@ -26,7 +26,7 @@ export default function Home() {
 
 
 const [isClient, setIsClient] = useState(false);
- const [resData, setResData] = useState('')
+ // const [resData, setResData] = useState('')
 
   // Ustawienie renderowania tylko na kliencie
   useEffect(() => {
@@ -39,28 +39,26 @@ const [isClient, setIsClient] = useState(false);
 
         console.log('values', values)
 
-  try {
-    const response = await fetch('https://jdszr16-random-forest-rangers-be.onrender.com/test', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-       body: JSON.stringify(values),
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-
-    console.log('!!data', data.message)
-
-    setResData(data.message)
-
-  } catch (error) {
-    console.error('Error:', error);
-  }
+  // try {
+  //   const response = await fetch('https://jdszr16-random-forest-rangers-be.onrender.com/test', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //      body: JSON.stringify(values),
+  //   });
+  //
+  //   if (!response.ok) {
+  //     throw new Error('Network response was not ok');
+  //   }
+  //
+  //   const data = await response.json();
+  //
+  //   setResData(data.message)
+  //
+  // } catch (error) {
+  //   console.error('Error:', error);
+  // }
 
 };
 
