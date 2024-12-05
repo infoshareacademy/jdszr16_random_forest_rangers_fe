@@ -1,33 +1,68 @@
-import type { Metadata } from "next";
+'use client'
+import type {Metadata} from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import {Breadcrumb, Layout, Menu, theme} from 'antd';
+import Link from 'next/link';
+import {usePathname} from 'next/navigation';
+import styles from "@/app/page.module.css";
+
+
+const {Header, Content, Footer} = Layout;
+
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+    src: "./fonts/GeistVF.woff",
+    variable: "--font-geist-sans",
+    weight: "100 900",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+    src: "./fonts/GeistMonoVF.woff",
+    variable: "--font-geist-mono",
+    weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  title: "Random Forest Rangers",
-  description: "ML Project",
-};
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
+                                       children,
+                                   }: Readonly<{
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+
+    const pathname = usePathname();
+
+    const items = [
+        {
+            key: '/',
+            label: <Link href="/">Home</Link>,
+        },
+        {
+            key: '/aplikacja',
+            label: <Link href="/aplikacja">Aplikacja</Link>,
+        },
+    ];
+
+    return (
+        <html lang="en">
+        <body className={`${geistSans.variable} ${geistMono.variable}`}>
+
+        <Header style={{display: 'flex', alignItems: 'center'}}>
+            <div className="demo-logo"/>
+            <Menu
+                theme="dark"
+                mode="horizontal"
+                selectedKeys={[pathname === '/' ? '/' : pathname]}
+                items={items}
+                style={{flex: 1, minWidth: 0}}
+            />
+        </Header>
+        <div className={styles.page}>
+
         {children}
-      </body>
-    </html>
-  );
+
+    </div>
+        </body>
+        </html>
+    );
 }
+
