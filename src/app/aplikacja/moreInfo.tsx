@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import type { CheckboxProps } from "antd";
 import type { InputNumberProps } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
 import { InputNumber, Input, Button, Flex, Spin, Checkbox } from "antd";
 
 const { TextArea } = Input;
