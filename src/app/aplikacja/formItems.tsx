@@ -21,6 +21,8 @@ export default function FormItems() {
     defaultValues as FieldType
   );
 
+  const [modelPrediction, setModelPrediction] = useState<number | null>(null);
+
   const [isCigsPerDayDisabled, setIsCigsPerDayDisabled] = useState(true);
 
   const onAgeChange = (value: number | null) => {
@@ -110,11 +112,12 @@ export default function FormItems() {
     delete updatedFormValues.waga;
     delete updatedFormValues.wzrost;
     const resData = await sendFormValues(updatedFormValues, "/predict");
-    console.log("resData", resData);
+    setModelPrediction(resData?.prediction[0]);
   };
 
   return (
     <>
+      <div style = {{color: 'red'}}> Zachorujesz na {modelPrediction * 100} procent</div>
       <Row>
         <Col span={6}>
           <Form.Item<FieldType>
