@@ -117,7 +117,7 @@ export default function FormItems() {
 
   return (
     <>
-      <div style = {{color: 'red'}}> Zachorujesz na {modelPrediction * 100} procent</div>
+      <div style = {{color: 'red'}}> Zachorujesz na {(modelPrediction || 0) * 100 } procent</div>
       <Row>
         <Col span={6}>
           <Form.Item<FieldType>
