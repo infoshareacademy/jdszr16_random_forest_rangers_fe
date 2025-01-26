@@ -112,12 +112,12 @@ export default function FormItems() {
     delete updatedFormValues.waga;
     delete updatedFormValues.wzrost;
     const resData = await sendFormValues(updatedFormValues, "/predict");
-    setModelPrediction(resData?.prediction[0]);
+    setModelPrediction(resData?.prediction[0][1]);
   };
 
   return (
     <>
-      <div style = {{color: 'red'}}> Zachorujesz na {((modelPrediction[1] || 0) * 100).toFixed(2) } % </div>
+      <div style = {{color: 'red'}}> Zachorujesz na {((modelPrediction || 0) * 100).toFixed(2) } % </div>
       <Row>
         <Col span={6}>
           <Form.Item<FieldType>
