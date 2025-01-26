@@ -1,8 +1,8 @@
 export const defaultValues = {
   age: 22,
-  education: 2,
   sex: 1,
-  is_smoking: 0,
+  education: 2,
+  // is_smoking: 0,
   cigsPerDay: 0,
   BPMeds: 0,
   prevalentStroke: 0,
@@ -11,9 +11,9 @@ export const defaultValues = {
   totChol: 180,
   sysBP: 100,
   diaBP: 70,
-  bmi: 21.6,
+  BMI: 21.6,
   wzrost: 180,
   waga: 70,
-  heartRate: 80,
+  // heartRate: 80,
   glucose: 80,
 };

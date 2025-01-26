@@ -1,5 +1,5 @@
 import config from "../../../config";
-import { FieldType } from "../formTypes";
+import { FieldType } from "../types/formTypes";
 
 export const sendFormValues = async (formValues: FieldType, url: string) => {
   const host: string = `${config.apiBaseUrl}`;

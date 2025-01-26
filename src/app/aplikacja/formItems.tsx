@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 
 import { Button, Form, Input, InputNumber, Col, Row, Select } from "antd";
-import { FieldType } from "./formTypes";
+import { FieldType } from "./types/formTypes";
 import { sendFormValues } from "./helpers/postRequest";
 
 import { defaultValues } from "./defaults";
@@ -23,7 +23,7 @@ export default function FormItems() {
 
   const [modelPrediction, setModelPrediction] = useState<number>(0);
 
-  const [isCigsPerDayDisabled, setIsCigsPerDayDisabled] = useState(true);
+  // const [isCigsPerDayDisabled, setIsCigsPerDayDisabled] = useState(true);
 
   const onAgeChange = (value: number | null) => {
     setFormValues((prev) => ({ ...prev, age: value || 0 }));
@@ -38,15 +38,15 @@ export default function FormItems() {
     setFormValues((prev) => ({ ...prev, sex: value }));
   };
 
-  const onSmokingChange = (value: number) => {
-    setFormValues((prev) => ({ ...prev, is_smoking: value }));
-    if (value === 0) {
-      setIsCigsPerDayDisabled(true);
-      setFormValues((prev) => ({ ...prev, cigsPerDay: 0 }));
-    } else {
-      setIsCigsPerDayDisabled(false);
-    }
-  };
+  // const onSmokingChange = (value: number) => {
+  //   setFormValues((prev) => ({ ...prev, is_smoking: value }));
+  //   if (value === 0) {
+  //     setIsCigsPerDayDisabled(true);
+  //     setFormValues((prev) => ({ ...prev, cigsPerDay: 0 }));
+  //   } else {
+  //     setIsCigsPerDayDisabled(false);
+  //   }
+  // };
 
   const onCigsPerDayChange = (value: number | null) => {
     setFormValues((prev) => ({ ...prev, cigsPerDay: value || 0 }));
@@ -80,9 +80,9 @@ export default function FormItems() {
     setFormValues((prev) => ({ ...prev, diaBP: value || 0 }));
   };
 
-  const onHeartRateChange = (value: number | null) => {
-    setFormValues((prev) => ({ ...prev, heartRate: value || 0 }));
-  };
+  // const onHeartRateChange = (value: number | null) => {
+  //   setFormValues((prev) => ({ ...prev, heartRate: value || 0 }));
+  // };
 
   const onGlucoseChange = (value: number | null) => {
     setFormValues((prev) => ({ ...prev, glucose: value || 0 }));
@@ -170,21 +170,21 @@ export default function FormItems() {
         </Col>
       </Row>
       <Row>
-        <Col span={6}>
-          <Form.Item<FieldType>
-            label="Czy pali"
-            name="is_smoking"
-            rules={[{ required: true, message: "Wybierz czy palisz" }]}
-          >
-            <Select
-              defaultValue={formValues.is_smoking}
-              onChange={onSmokingChange}
-            >
-              <Select.Option value={1}>Tak</Select.Option>
-              <Select.Option value={0}>Nie</Select.Option>
-            </Select>
-          </Form.Item>
-        </Col>
+        {/*<Col span={6}>*/}
+        {/*  <Form.Item<FieldType>*/}
+        {/*    label="Czy pali"*/}
+        {/*    name="is_smoking"*/}
+        {/*    rules={[{ required: true, message: "Wybierz czy palisz" }]}*/}
+        {/*  >*/}
+        {/*    <Select*/}
+        {/*      defaultValue={formValues.is_smoking}*/}
+        {/*      onChange={onSmokingChange}*/}
+        {/*    >*/}
+        {/*      <Select.Option value={1}>Tak</Select.Option>*/}
+        {/*      <Select.Option value={0}>Nie</Select.Option>*/}
+        {/*    </Select>*/}
+        {/*  </Form.Item>*/}
+        {/*</Col>*/}
 
         <Col span={7}>
           <Form.Item<FieldType>
@@ -199,7 +199,7 @@ export default function FormItems() {
               defaultValue={formValues.cigsPerDay}
               onChange={onCigsPerDayChange}
               value={formValues.cigsPerDay}
-              disabled={isCigsPerDayDisabled}
+              // disabled={isCigsPerDayDisabled}
             />
           </Form.Item>
         </Col>
@@ -323,21 +323,21 @@ export default function FormItems() {
         </Col>
       </Row>
       <Row>
-        <Col span={6}>
-          <Form.Item<FieldType>
-            label="Tętno  "
-            name="heartRate"
-            rules={[{ required: true, message: "Podaj tętno" }]}
-          >
-            <InputNumber
-              min={0}
-              max={200}
-              defaultValue={formValues.heartRate}
-              onChange={onHeartRateChange}
-              value={formValues.heartRate}
-            />
-          </Form.Item>
-        </Col>
+        {/*<Col span={6}>*/}
+        {/*  <Form.Item<FieldType>*/}
+        {/*    label="Tętno  "*/}
+        {/*    name="heartRate"*/}
+        {/*    rules={[{ required: true, message: "Podaj tętno" }]}*/}
+        {/*  >*/}
+        {/*    <InputNumber*/}
+        {/*      min={0}*/}
+        {/*      max={200}*/}
+        {/*      defaultValue={formValues.heartRate}*/}
+        {/*      onChange={onHeartRateChange}*/}
+        {/*      value={formValues.heartRate}*/}
+        {/*    />*/}
+        {/*  </Form.Item>*/}
+        {/*</Col>*/}
 
         <Col span={7}>
           <Form.Item<FieldType>
@@ -395,7 +395,7 @@ export default function FormItems() {
             <Input
               // defaultValue={formValues.bmi}
               // onChange={onBMIChange}
-              value={formValues.bmi}
+              value={formValues.BMI}
               readOnly
               disabled
             />
