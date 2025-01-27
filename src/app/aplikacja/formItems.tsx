@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 
 import { Button, Form, Input, InputNumber, Col, Row, Select } from "antd";
@@ -23,8 +22,6 @@ export default function FormItems() {
 
   const [modelPrediction, setModelPrediction] = useState<number>(0);
 
-  // const [isCigsPerDayDisabled, setIsCigsPerDayDisabled] = useState(true);
-
   const onAgeChange = (value: number | null) => {
     setFormValues((prev) => ({ ...prev, age: value || 0 }));
   };
@@ -37,16 +34,6 @@ export default function FormItems() {
   const onSexChange = (value: number) => {
     setFormValues((prev) => ({ ...prev, sex: value }));
   };
-
-  // const onSmokingChange = (value: number) => {
-  //   setFormValues((prev) => ({ ...prev, is_smoking: value }));
-  //   if (value === 0) {
-  //     setIsCigsPerDayDisabled(true);
-  //     setFormValues((prev) => ({ ...prev, cigsPerDay: 0 }));
-  //   } else {
-  //     setIsCigsPerDayDisabled(false);
-  //   }
-  // };
 
   const onCigsPerDayChange = (value: number | null) => {
     setFormValues((prev) => ({ ...prev, cigsPerDay: value || 0 }));
@@ -80,10 +67,6 @@ export default function FormItems() {
     setFormValues((prev) => ({ ...prev, diaBP: value || 0 }));
   };
 
-  // const onHeartRateChange = (value: number | null) => {
-  //   setFormValues((prev) => ({ ...prev, heartRate: value || 0 }));
-  // };
-
   const onGlucoseChange = (value: number | null) => {
     setFormValues((prev) => ({ ...prev, glucose: value || 0 }));
   };
@@ -94,17 +77,18 @@ export default function FormItems() {
     setFormValues((prev) => ({
       ...prev,
       wzrost: value || 0,
-      bmi: Number(bmiValue),
+      BMI: Number(bmiValue),
     }));
   };
 
   const onWagaChange = (value: number | null) => {
+    console.log("value", formValues);
     const height = formValues?.wzrost || 0;
     const bmiValue = calculateBMI(value || 0, height);
     setFormValues((prev) => ({
       ...prev,
       waga: value || 0,
-      bmi: Number(bmiValue),
+      BMI: Number(bmiValue),
     }));
   };
   const onSubmit = async () => {
@@ -117,7 +101,10 @@ export default function FormItems() {
 
   return (
     <>
-      <div style = {{color: 'red'}}> Zachorujesz na {((modelPrediction || 0) * 100).toFixed(2) } % </div>
+      <div style={{ color: "red" }}>
+        {" "}
+        Zachorujesz na {((modelPrediction || 0) * 100).toFixed(2)} %{" "}
+      </div>
       <Row>
         <Col span={6}>
           <Form.Item<FieldType>
@@ -144,7 +131,6 @@ export default function FormItems() {
             <Select
               defaultValue={formValues.education}
               onChange={onEducationChange}
-              // style={{ width: 150 }}
             >
               <Select.Option value={0}>Podstawowe</Select.Option>
               <Select.Option value={1}>Zawodowe</Select.Option>
@@ -170,41 +156,62 @@ export default function FormItems() {
         </Col>
       </Row>
       <Row>
-        {/*<Col span={6}>*/}
-        {/*  <Form.Item<FieldType>*/}
-        {/*    label="Czy pali"*/}
-        {/*    name="is_smoking"*/}
-        {/*    rules={[{ required: true, message: "Wybierz czy palisz" }]}*/}
-        {/*  >*/}
-        {/*    <Select*/}
-        {/*      defaultValue={formValues.is_smoking}*/}
-        {/*      onChange={onSmokingChange}*/}
-        {/*    >*/}
-        {/*      <Select.Option value={1}>Tak</Select.Option>*/}
-        {/*      <Select.Option value={0}>Nie</Select.Option>*/}
-        {/*    </Select>*/}
-        {/*  </Form.Item>*/}
-        {/*</Col>*/}
-
+        <Col span={6}>
+          <Form.Item<FieldType>
+            label="Wzrost"
+            name="wzrost"
+            rules={[{ required: true, message: "Podaj wzrost" }]}
+          >
+            <InputNumber
+              min={0}
+              max={500}
+              defaultValue={formValues.wzrost}
+              onChange={onWzrostChange}
+              value={formValues.wzrost}
+            />
+          </Form.Item>
+        </Col>
         <Col span={7}>
+          <Form.Item<FieldType>
+            label="Waga"
+            name="waga"
+            rules={[{ required: true, message: "Podaj wagę" }]}
+          >
+            <InputNumber
+              min={0}
+              max={500}
+              defaultValue={formValues.waga}
+              onChange={onWagaChange}
+              value={formValues.waga}
+            />
+          </Form.Item>
+        </Col>
+        <Col span={6}>
+          <Form.Item<FieldType>
+            label="BMI"
+            rules={[{ required: true, message: "Podaj wartość BMI" }]}
+          >
+            <Input value={formValues.BMI} readOnly disabled />
+          </Form.Item>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={6}>
           <Form.Item<FieldType>
             label="Liczba papierosów dziennie"
             name="cigsPerDay"
             rules={[{ required: true, message: "Podaj liczbę papierosów" }]}
           >
-            <div></div>
             <InputNumber
               min={0}
               max={100}
               defaultValue={formValues.cigsPerDay}
               onChange={onCigsPerDayChange}
               value={formValues.cigsPerDay}
-              // disabled={isCigsPerDayDisabled}
             />
           </Form.Item>
         </Col>
-
-        <Col span={6}>
+        <Col span={7}>
           <Form.Item<FieldType>
             label="Leki na ciśnienie"
             name="BPMeds"
@@ -219,6 +226,21 @@ export default function FormItems() {
               <Select.Option value={1}>Tak</Select.Option>
               <Select.Option value={0}>Nie</Select.Option>
             </Select>
+          </Form.Item>
+        </Col>
+        <Col span={6}>
+          <Form.Item<FieldType>
+            label="Glukoza"
+            name="glucose"
+            rules={[{ required: true, message: "Podaj poziom glukozy" }]}
+          >
+            <InputNumber
+              min={0}
+              max={500}
+              defaultValue={formValues.glucose}
+              onChange={onGlucoseChange}
+              value={formValues.glucose}
+            />
           </Form.Item>
         </Col>
       </Row>
@@ -322,86 +344,7 @@ export default function FormItems() {
           </Form.Item>
         </Col>
       </Row>
-      <Row>
-        {/*<Col span={6}>*/}
-        {/*  <Form.Item<FieldType>*/}
-        {/*    label="Tętno  "*/}
-        {/*    name="heartRate"*/}
-        {/*    rules={[{ required: true, message: "Podaj tętno" }]}*/}
-        {/*  >*/}
-        {/*    <InputNumber*/}
-        {/*      min={0}*/}
-        {/*      max={200}*/}
-        {/*      defaultValue={formValues.heartRate}*/}
-        {/*      onChange={onHeartRateChange}*/}
-        {/*      value={formValues.heartRate}*/}
-        {/*    />*/}
-        {/*  </Form.Item>*/}
-        {/*</Col>*/}
-
-        <Col span={7}>
-          <Form.Item<FieldType>
-            label="Glukoza"
-            name="glucose"
-            rules={[{ required: true, message: "Podaj poziom glukozy" }]}
-          >
-            <InputNumber
-              min={0}
-              max={500}
-              defaultValue={formValues.glucose}
-              onChange={onGlucoseChange}
-              value={formValues.glucose}
-            />
-          </Form.Item>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={6}>
-          <Form.Item<FieldType>
-            label="Wzrost"
-            name="wzrost"
-            rules={[{ required: true, message: "Podaj wzrost" }]}
-          >
-            <InputNumber
-              min={0}
-              max={500}
-              defaultValue={formValues.wzrost}
-              onChange={onWzrostChange}
-              value={formValues.wzrost}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={7}>
-          <Form.Item<FieldType>
-            label="Waga"
-            name="waga"
-            rules={[{ required: true, message: "Podaj wagę" }]}
-          >
-            <InputNumber
-              min={0}
-              max={500}
-              defaultValue={formValues.waga}
-              onChange={onWagaChange}
-              value={formValues.waga}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={6}>
-          <Form.Item<FieldType>
-            label="BMI"
-            // name="bmi"
-            rules={[{ required: true, message: "Podaj wartość BMI" }]}
-          >
-            <Input
-              // defaultValue={formValues.bmi}
-              // onChange={onBMIChange}
-              value={formValues.BMI}
-              readOnly
-              disabled
-            />
-          </Form.Item>
-        </Col>
-      </Row>
+      <Row></Row>
 
       <Row>
         <Col span={6}>
