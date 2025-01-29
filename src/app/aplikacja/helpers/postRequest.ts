@@ -5,11 +5,6 @@ export const sendFormValues = async (formValues: FieldType, url: string) => {
   const host: string = `${config.apiBaseUrl}`;
   const api: string = `${host}${url}`;
 
-  formValues["edu_1.0"] = true;
-  formValues["edu_2.0"] = false;
-  formValues["edu_3.0"] = false;
-  formValues["edu_4.0"] = false;
-
   console.log("vormValues", formValues);
 
   try {

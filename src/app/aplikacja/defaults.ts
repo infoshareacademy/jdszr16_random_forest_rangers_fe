@@ -1,6 +1,6 @@
 export const defaultValues = {
-  age: 22,
   sex: 1,
+  age: 22,
   education: 2,
   cigsPerDay: 0,
   BPMeds: 0,
@@ -11,7 +11,7 @@ export const defaultValues = {
   sysBP: 100,
   diaBP: 70,
   BMI: 21.6,
+  glucose: 80,
   wzrost: 180,
   waga: 70,
-  glucose: 80,
 };

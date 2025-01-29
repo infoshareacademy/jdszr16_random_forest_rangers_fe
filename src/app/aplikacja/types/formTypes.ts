@@ -11,10 +11,11 @@ export interface FieldType {
   diaBP: number;
   BMI: number;
   glucose: number;
-  "edu_1.0": Boolean;
-  "edu_2.0": Boolean;
-  "edu_3.0": Boolean;
-  "edu_4.0": Boolean;
+  education: number;
+  edu_1: boolean;
+  edu_2: boolean;
+  edu_3: boolean;
+  edu_4: boolean;
   wzrost?: number;
   waga?: number;
 }

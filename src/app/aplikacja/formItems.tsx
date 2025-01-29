@@ -27,8 +27,19 @@ export default function FormItems() {
   };
 
   const onEducationChange = (value: number) => {
-    console.log("value", value);
-    setFormValues((prev) => ({ ...prev, education: value }));
+    // przychodzi 0-5
+    if (value === 0) {
+      value = 1;
+    }
+
+    if (value === 5) {
+      value = 4;
+    }
+
+    setFormValues((prev) => ({
+      ...prev,
+      education: value,
+    }));
   };
 
   const onSexChange = (value: number) => {
@@ -96,7 +107,8 @@ export default function FormItems() {
     delete updatedFormValues.waga;
     delete updatedFormValues.wzrost;
     const resData = await sendFormValues(updatedFormValues, "/predict");
-    setModelPrediction(resData?.prediction[0][1]);
+    console.log("resData", resData);
+    setModelPrediction(resData?.probability);
   };
 
   return (
@@ -169,6 +181,7 @@ export default function FormItems() {
               onChange={onWzrostChange}
               value={formValues.wzrost}
             />
+            <span> cm</span>
           </Form.Item>
         </Col>
         <Col span={7}>
@@ -183,7 +196,8 @@ export default function FormItems() {
               defaultValue={formValues.waga}
               onChange={onWagaChange}
               value={formValues.waga}
-            />
+            />{" "}
+            <span> kg</span>
           </Form.Item>
         </Col>
         <Col span={6}>
@@ -240,7 +254,8 @@ export default function FormItems() {
               defaultValue={formValues.glucose}
               onChange={onGlucoseChange}
               value={formValues.glucose}
-            />
+            />{" "}
+            mg/dL
           </Form.Item>
         </Col>
       </Row>
@@ -308,7 +323,8 @@ export default function FormItems() {
               defaultValue={formValues.totChol}
               onChange={onTotCholChange}
               value={formValues.totChol}
-            />
+            />{" "}
+            <span>mg/dL</span>
           </Form.Item>
         </Col>
 
@@ -325,6 +341,7 @@ export default function FormItems() {
               onChange={onSysBPChange}
               value={formValues.sysBP}
             />
+            <span> mmHg</span>
           </Form.Item>
         </Col>
 
@@ -341,6 +358,7 @@ export default function FormItems() {
               onChange={onDiaBPChange}
               value={formValues.diaBP}
             />
+            <span> mmHg</span>
           </Form.Item>
         </Col>
       </Row>
