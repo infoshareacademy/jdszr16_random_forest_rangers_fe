@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 
-import { Form, Divider } from "antd";
+import { Form } from "antd";
 import FormItems from "./formItems";
-import MoreInfo from "./moreInfo";
+// import MoreInfo from "./moreInfo";
 
 export default function Home() {
   const [isClient, setIsClient] = useState(false);
@@ -25,10 +25,9 @@ export default function Home() {
       >
         <FormItems />
       </Form>
-      <Divider style={{ marginTop: 60 }} orientation="left" plain>
-        Dodatkowe informacje o chorobie
-      </Divider>
-      <MoreInfo />
+      {/*<Divider style={{ marginTop: 60 }} orientation="left" plain>*/}
+      {/*  Dodatkowe informacje o chorobie*/}
+      {/*</Divider>*/}
     </div>
   );
 }

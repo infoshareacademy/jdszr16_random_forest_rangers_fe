@@ -1,11 +1,23 @@
 "use client";
 import React, { useState } from "react";
 
-import { Button, Form, Input, InputNumber, Col, Row, Select } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Col,
+  Row,
+  Select,
+  type CheckboxProps,
+} from "antd";
 import { FieldType } from "./types/formTypes";
 import { sendFormValues } from "./helpers/postRequest";
 
 import { defaultValues } from "./defaults";
+// import { Tooltip } from "antd";
+// import { InfoCircleOutlined } from "@ant-design/icons";
+import MoreInfo from "@/app/aplikacja/moreInfo";
 
 function calculateBMI(weight: number, height: number) {
   if (weight <= 0 || height <= 0) {
@@ -16,6 +28,43 @@ function calculateBMI(weight: number, height: number) {
 }
 
 export default function FormItems() {
+  const [isDoctor, setIsDoctor] = useState(false);
+  const [spinLoading, setSpinLoading] = useState(false);
+
+  const [diseaseDescription, setDiseaseDescription] = useState("gowno");
+
+  const onDoctorChange: CheckboxProps["onChange"] = (e) => {
+    console.log("e", e.target.checked);
+    setIsDoctor(e.target.checked);
+  };
+
+  const onLabelClick = async (ilness, value) => {
+    console.log(ilness, value);
+    setSpinLoading(true);
+    setDiseaseDescription("");
+    // setIsTreatmentActive(true);
+    // setIsTreatmentChecked(false);
+    // setTreatmentDesc("");
+
+    // const href = `https://jdszr16-random-forest-rangers-be.onrender.com/illness_more_info?is_doctor=${isDoctor}&length=${3}&disease=${ilness}&value=${value}`;
+    const href = `http://localhost:8000/illness_more_info?is_doctor=${isDoctor}&length=${3}&disease=${ilness}&value=${value}`;
+
+    try {
+      const response = await fetch(href);
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const result = await response.json();
+      setDiseaseDescription(result);
+      // setIsTreatmentActive(false);
+      setSpinLoading(false);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const [formValues, setFormValues] = useState<FieldType>(
     defaultValues as FieldType
   );
@@ -27,7 +76,6 @@ export default function FormItems() {
   };
 
   const onEducationChange = (value: number) => {
-    // przychodzi 0-5
     if (value === 0) {
       value = 1;
     }
@@ -110,6 +158,10 @@ export default function FormItems() {
     console.log("resData", resData);
     setModelPrediction(resData?.probability);
   };
+
+  // const onLabelClick = (label: string) => {
+  //   console.log("Kliknięto w label", label);
+  // };
 
   return (
     <>
@@ -202,7 +254,14 @@ export default function FormItems() {
         </Col>
         <Col span={6}>
           <Form.Item<FieldType>
-            label="BMI"
+            label={
+              <span
+                onClick={() => onLabelClick("BMI", formValues.BMI)}
+                style={{ cursor: "pointer" }}
+              >
+                BMI
+              </span>
+            }
             rules={[{ required: true, message: "Podaj wartość BMI" }]}
           >
             <Input value={formValues.BMI} readOnly disabled />
@@ -278,7 +337,19 @@ export default function FormItems() {
 
         <Col span={7}>
           <Form.Item<FieldType>
-            label="Nadcisnienie"
+            label={
+              <span
+                onClick={() =>
+                  onLabelClick(
+                    "Nadciśnienie",
+                    formValues.prevalentHyp ? "Tak" : "Nie"
+                  )
+                }
+                style={{ cursor: "pointer" }}
+              >
+                Nadciśnienie
+              </span>
+            }
             name="prevalentHyp"
             rules={[
               { required: true, message: "Podaj, czy masz nadciśnienie" },
@@ -296,7 +367,16 @@ export default function FormItems() {
 
         <Col span={6}>
           <Form.Item<FieldType>
-            label="Cukrzyca"
+            label={
+              <span
+                onClick={() =>
+                  onLabelClick("Cukrzyca", formValues.diabetes ? "Tak" : "Nie")
+                }
+                style={{ cursor: "pointer" }}
+              >
+                Cukrzyca
+              </span>
+            }
             name="diabetes"
             rules={[{ required: true, message: "Podaj, czy masz cukrzycę" }]}
           >
@@ -313,7 +393,14 @@ export default function FormItems() {
       <Row>
         <Col span={6}>
           <Form.Item<FieldType>
-            label="Choresterol"
+            label={
+              <span
+                onClick={() => onLabelClick("Cholesterol", formValues.totChol)}
+                style={{ cursor: "pointer" }}
+              >
+                Cholesterol
+              </span>
+            }
             name="totChol"
             rules={[{ required: true, message: "Podaj poziom cholesterolu" }]}
           >
@@ -330,7 +417,16 @@ export default function FormItems() {
 
         <Col span={7}>
           <Form.Item<FieldType>
-            label="Ciśnienie skurczowe"
+            label={
+              <span
+                onClick={() =>
+                  onLabelClick("Ciśnienie skurczowe", formValues.sysBP)
+                }
+                style={{ cursor: "pointer" }}
+              >
+                Ciśnienie skurczowe
+              </span>
+            }
             name="sysBP"
             rules={[{ required: true, message: "Podaj ciśnienie skurczowe" }]}
           >
@@ -368,11 +464,20 @@ export default function FormItems() {
         <Col span={6}>
           <Form.Item label={null}>
             <Button type="primary" onClick={onSubmit}>
-              Submit
+              Wyślij
             </Button>
           </Form.Item>
         </Col>
       </Row>
+
+      <MoreInfo
+        onDoctorChange={onDoctorChange}
+        isDoctor={isDoctor}
+        setIsDoctor={setIsDoctor}
+        spinLoading={spinLoading}
+        diseaseDescription={diseaseDescription}
+        // onInfoSubmit={onInfoSubmit}
+      />
     </>
   );
 }
