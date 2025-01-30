@@ -1,18 +1,21 @@
 "use client";
-import React, { useState } from "react";
-import type { CheckboxProps } from "antd";
+import React from "react";
+// import type from "antd";
 // import type { InputNumberProps } from "antd";
-import { Input, Button, Flex, Spin, Checkbox } from "antd";
+import { Input, Flex, Spin, Checkbox } from "antd";
 // import FormItems from "@/app/aplikacja/formItems";
 
 const { TextArea } = Input;
 
 export default function MoreInfo({
-  isDoctor,
   onDoctorChange,
   spinLoading,
   diseaseDescription,
-  // onInfoSubmit,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onDoctorChange: () => void;
+  spinLoading: boolean;
+  diseaseDescription: string;
 }) {
   // const [descriptionLength, setDescriptionLength] = useState(10);
   // const [diseaseInput, setDiseaseInput] = useState("");

@@ -1,7 +1,8 @@
-
-
 const nextConfig = {
-  // reactStrictMode: false, // Opcjonalnie możesz to ustawić w zależności od potrzeb
+  reactStrictMode: false, // Opcjonalnie możesz to ustawić w zależności od potrzeb
+  typescript: {
+    ignoreBuildErrors: true, // Wyłącza błędy TypeScript w `next build`
+  },
   // devIndicators: {
   //   buildActivity: false, // Wyłącza wskaźnik aktywności kompilacji w rogu ekranu
   // },

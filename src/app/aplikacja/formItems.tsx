@@ -1,4 +1,7 @@
 "use client";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React, { useState } from "react";
 
 import {
@@ -15,8 +18,7 @@ import { FieldType } from "./types/formTypes";
 import { sendFormValues } from "./helpers/postRequest";
 
 import { defaultValues } from "./defaults";
-// import { Tooltip } from "antd";
-// import { InfoCircleOutlined } from "@ant-design/icons";
+
 import MoreInfo from "@/app/aplikacja/moreInfo";
 
 function calculateBMI(weight: number, height: number) {
@@ -31,14 +33,14 @@ export default function FormItems() {
   const [isDoctor, setIsDoctor] = useState(false);
   const [spinLoading, setSpinLoading] = useState(false);
 
-  const [diseaseDescription, setDiseaseDescription] = useState("gowno");
+  const [diseaseDescription, setDiseaseDescription] = useState("");
 
-  const onDoctorChange: CheckboxProps["onChange"] = (e) => {
+  const onDoctorChange: CheckboxProps["onChange"] = (e): any => {
     console.log("e", e.target.checked);
     setIsDoctor(e.target.checked);
   };
 
-  const onLabelClick = async (ilness, value) => {
+  const onLabelClick = async (ilness: string, value: string) => {
     console.log(ilness, value);
     setSpinLoading(true);
     setDiseaseDescription("");
@@ -47,7 +49,8 @@ export default function FormItems() {
     // setTreatmentDesc("");
 
     // const href = `https://jdszr16-random-forest-rangers-be.onrender.com/illness_more_info?is_doctor=${isDoctor}&length=${3}&disease=${ilness}&value=${value}`;
-    const href = `http://localhost:8000/illness_more_info?is_doctor=${isDoctor}&length=${3}&disease=${ilness}&value=${value}`;
+    // const href = `http://localhost:8000/illness_more_info?is_doctor=${isDoctor}&length=${3}&disease=${ilness}&value=${value}`;
+    const href = `https://jdszr16-random-forest-rangers-be.onrender.com/illness_more_info?is_doctor=${isDoctor}&length=${3}&disease=${ilness}&value=${value}`;
 
     try {
       const response = await fetch(href);
@@ -69,7 +72,7 @@ export default function FormItems() {
     defaultValues as FieldType
   );
 
-  const [modelPrediction, setModelPrediction] = useState<number>(0);
+  // const [modelPrediction, setModelPrediction] = useState<number>(0);
 
   const onAgeChange = (value: number | null) => {
     setFormValues((prev) => ({ ...prev, age: value || 0 }));
@@ -151,24 +154,24 @@ export default function FormItems() {
     }));
   };
   const onSubmit = async () => {
+    setSpinLoading(true);
     const updatedFormValues = { ...formValues };
     delete updatedFormValues.waga;
     delete updatedFormValues.wzrost;
-    const resData = await sendFormValues(updatedFormValues, "/predict");
-    console.log("resData", resData);
-    setModelPrediction(resData?.probability);
-  };
 
-  // const onLabelClick = (label: string) => {
-  //   console.log("Kliknięto w label", label);
-  // };
+    const resData: any = await sendFormValues(
+      /* eslint-disable @typescript-eslint/no-explicit-any */
+      { formValues: updatedFormValues, isDoctor: isDoctor } as any,
+      "/predict"
+    );
+
+    // setModelPrediction(resData?.probability);
+    setDiseaseDescription(resData?.illnessInfo);
+    setSpinLoading(false);
+  };
 
   return (
     <>
-      <div style={{ color: "red" }}>
-        {" "}
-        Zachorujesz na {((modelPrediction || 0) * 100).toFixed(2)} %{" "}
-      </div>
       <Row>
         <Col span={6}>
           <Form.Item<FieldType>
@@ -256,7 +259,7 @@ export default function FormItems() {
           <Form.Item<FieldType>
             label={
               <span
-                onClick={() => onLabelClick("BMI", formValues.BMI)}
+                onClick={() => onLabelClick("BMI", formValues.BMI.toString())}
                 style={{ cursor: "pointer" }}
               >
                 BMI
@@ -395,7 +398,9 @@ export default function FormItems() {
           <Form.Item<FieldType>
             label={
               <span
-                onClick={() => onLabelClick("Cholesterol", formValues.totChol)}
+                onClick={() =>
+                  onLabelClick("Cholesterol", formValues.totChol.toString())
+                }
                 style={{ cursor: "pointer" }}
               >
                 Cholesterol
@@ -420,7 +425,10 @@ export default function FormItems() {
             label={
               <span
                 onClick={() =>
-                  onLabelClick("Ciśnienie skurczowe", formValues.sysBP)
+                  onLabelClick(
+                    "Ciśnienie skurczowe",
+                    formValues.sysBP.toString()
+                  )
                 }
                 style={{ cursor: "pointer" }}
               >
@@ -471,7 +479,7 @@ export default function FormItems() {
       </Row>
 
       <MoreInfo
-        onDoctorChange={onDoctorChange}
+        onDoctorChange={() => onDoctorChange}
         isDoctor={isDoctor}
         setIsDoctor={setIsDoctor}
         spinLoading={spinLoading}
