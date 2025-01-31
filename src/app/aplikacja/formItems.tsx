@@ -172,7 +172,6 @@ export default function FormItems() {
 
   return (
     <>
-      {JSON.stringify(isDoctor)}
       <Row>
         <Col span={6}>
           <Form.Item<FieldType>
