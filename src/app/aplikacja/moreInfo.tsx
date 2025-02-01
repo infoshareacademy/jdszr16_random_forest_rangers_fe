@@ -99,7 +99,7 @@ export default function MoreInfo({
               rows={10}
               style={{ marginTop: 20 }}
               value={diseaseDescription}
-              placeholder="Opis choroby"
+              // placeholder="Opis choroby"
             />
           </Spin>
         </Flex>

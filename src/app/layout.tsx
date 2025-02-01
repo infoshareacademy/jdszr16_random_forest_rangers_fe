@@ -32,6 +32,10 @@ export default function RootLayout({
       label: <Link href="/">Home</Link>,
     },
     {
+      key: "/dashboard",
+      label: <Link href="/dashboard">Dashboard</Link>,
+    },
+    {
       key: "/aplikacja",
       label: <Link href="/aplikacja">Aplikacja</Link>,
     },
