@@ -31,9 +31,14 @@ export default function RootLayout({
       key: "/",
       label: <Link href="/">Home</Link>,
     },
+
     {
       key: "/dashboard",
-      label: <Link href="/dashboard">Dashboard</Link>,
+      label: (
+        <Link href="https://cardiorangerdashboard-rnnrydhjskocytmdyn4unv.streamlit.app/">
+          Dashboard
+        </Link>
+      ),
     },
     {
       key: "/aplikacja",

@@ -14,19 +14,7 @@ export default function Home() {
 
   return (
     <div>
-      <div style={{ textAlign: "center" }}>
-        <iframe
-          src="https://infoshareacademy.com/"
-          width="100%"
-          height="7000x"
-          style={{
-            border: "none",
-            overflow: "hidden",
-          }}
-          scrolling="no" // Wyłącza scrollowanie w iframe
-          title="Osadzona Strona"
-        ></iframe>
-      </div>
+      <div style={{ textAlign: "center" }}></div>
     </div>
   );
 }
