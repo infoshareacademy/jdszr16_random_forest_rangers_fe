@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 
-import { Form } from "antd";
-import FormItems from "./formItems";
 // import MoreInfo from "./moreInfo";
 
 export default function Home() {
